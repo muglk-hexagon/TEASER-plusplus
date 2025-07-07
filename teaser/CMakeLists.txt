@@ -1,35 +1,20 @@
 include(GNUInstallDirs)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include(FetchContent)
-
-FetchContent_Declare(pmc
-    GIT_REPOSITORY https://github.com/jingnanshi/pmc.git
-)
-if (NOT pmc_POPULATED)
-  FetchContent_Populate(pmc)
-  set(PMC_BUILD_SHARED OFF CACHE INTERNAL "")
-  add_subdirectory(${pmc_SOURCE_DIR} ${pmc_BINARY_DIR} EXCLUDE_FROM_ALL)
+# Nix/offline patch: Use local sources passed as -DPMC_PATH=... etc.
+if(NOT DEFINED PMC_PATH)
+    set(PMC_PATH "${CMAKE_SOURCE_DIR}/external/pmc")
+endif()
+if(NOT DEFINED SPECTRA_PATH)
+    set(SPECTRA_PATH "${CMAKE_SOURCE_DIR}/external/spectra")
+endif()
+if(NOT DEFINED TINYPATH)
+    set(TINYPATH "${CMAKE_SOURCE_DIR}/external/tinyply")
 endif()
 
-FetchContent_Declare(tinyply
-    GIT_REPOSITORY https://github.com/ddiakopoulos/tinyply.git
-    BUILD_COMMAND ""
-    INSTALL_COMMAND ""
-)
-if (NOT tinyply_POPULATED)
-  FetchContent_Populate(tinyply)
-endif()
+add_subdirectory(${PMC_PATH} ${CMAKE_BINARY_DIR}/pmc EXCLUDE_FROM_ALL)
+# tinyply and spectra are header-only, so just use their include dirs
 
-FetchContent_Declare(spectra
-    GIT_REPOSITORY    https://github.com/jingnanshi/spectra
-    GIT_TAG           5c4fb1de050847988faaaaa50f60e7d3d5f16143
-    BUILD_COMMAND ""
-    INSTALL_COMMAND ""
-)
-if (NOT spectra_POPULATED)
-  FetchContent_Populate(spectra)
-endif()
 
 # teaser_io library
 add_library(teaser_io src/ply_io.cc)
