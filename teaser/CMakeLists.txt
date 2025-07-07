@@ -24,7 +24,7 @@ target_include_directories(teaser_io
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     PRIVATE
-        $<BUILD_INTERFACE:${tinyply_SOURCE_DIR}/source>
+        $<BUILD_INTERFACE:${TINYPATH}/source>
 )
 if(NOT BUILD_SHARED_LIBS)
   set_property(TARGET teaser_io PROPERTY POSITION_INDEPENDENT_CODE 1)
@@ -49,7 +49,7 @@ target_include_directories(teaser_registration
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     PRIVATE
-        $<BUILD_INTERFACE:${spectra_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${SPECTRA_PATH}/include>
 )
 if(NOT BUILD_SHARED_LIBS)
   set_property(TARGET teaser_registration PROPERTY POSITION_INDEPENDENT_CODE 1)
