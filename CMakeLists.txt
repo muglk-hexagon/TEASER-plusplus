@@ -19,11 +19,7 @@ endif ()
 
 # Options
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-option(BUILD_TESTS "Build tests" ON)
 option(BUILD_TEASER_FPFH "Build TEASER++ wrappers for PCL FPFH estimation." OFF)
-option(BUILD_MATLAB_BINDINGS "Build MATLAB bindings" OFF)
-option(BUILD_PYTHON_BINDINGS "Build Python bindings" OFF)
-option(BUILD_DOC "Build documentation" ON)
 option(BUILD_WITH_MARCH_NATIVE "Build with flag march=native" OFF)
 option(ENABLE_MKL "Try to use Eigen with MKL" OFF)
 option(ENABLE_DIAGNOSTIC_PRINT "Enable printing of diagnostic messages" ON)
@@ -77,25 +73,6 @@ endif ()
 # Building Targets
 set(TEASERPP_ROOT ${CMAKE_CURRENT_LIST_DIR})
 add_subdirectory(teaser)
-
-if (BUILD_TESTS)
-    enable_testing()
-    add_subdirectory(test)
-endif ()
-
-if (BUILD_DOC)
-    add_subdirectory(doc EXCLUDE_FROM_ALL)
-endif ()
-
-if (BUILD_MATLAB_BINDINGS)
-    message(STATUS "Will build MATLAB bindings.")
-    add_subdirectory(matlab)
-endif ()
-
-if (BUILD_PYTHON_BINDINGS)
-    message(STATUS "TEASER++ Python binding will be built.")
-    add_subdirectory(python)
-endif ()
 
 # export targets
 export(TARGETS ${TEASERPP_EXPORTED_TARGETS} FILE teaserpp-exports.cmake)
